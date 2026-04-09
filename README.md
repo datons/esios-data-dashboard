@@ -6,7 +6,7 @@ Interactive dashboard for the Spanish electricity market built with [Streamlit](
 
 ```bash
 # 1. Clone and install
-git clone <this-repo>
+git clone https://github.com/datons/esios-data-dashboard.git
 cd esios-data-dashboard
 uv sync
 
