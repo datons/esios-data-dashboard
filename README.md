@@ -5,11 +5,15 @@ Interactive dashboard for the Spanish electricity market built with [Streamlit](
 ## Quick start
 
 ```bash
-# 1. Clone and install
+# 1. Download and install
 git clone https://github.com/datons/esios-data-dashboard.git
 cd esios-data-dashboard
 uv sync
+```
 
+Or [download as ZIP](https://github.com/datons/esios-data-dashboard/archive/refs/heads/main.zip), unzip, and run `uv sync` inside the folder.
+
+```bash
 # 2. Add your API key
 cp .env.example .env
 # Edit .env and paste your key
