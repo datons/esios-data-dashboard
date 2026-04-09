@@ -1,0 +1,23 @@
+{
+	"inputs": [
+		{
+			"type": "promptString",
+			"id": "datons-api-key",
+			"description": "Datons API Key (get yours at datons.com)",
+			"password": true
+		}
+	],
+	"servers": {
+		"esios-data-oauth": {
+			"type": "http",
+			"url": "https://mcp.datons.com/esios-data/mcp/"
+		},
+		"esios-data-apikey": {
+			"type": "http",
+			"url": "https://mcp.datons.com/esios-data/mcp/",
+			"headers": {
+				"X-API-Key": "${input:datons-api-key}"
+			}
+		}
+	}
+}
