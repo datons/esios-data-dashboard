@@ -1,0 +1,13 @@
+[project]
+name = "esios-data-dashboard"
+version = "0.1.0"
+description = "Streamlit dashboard for Datons ESIOS Data API"
+requires-python = ">=3.11"
+dependencies = [
+    "datons",
+    "httpx",
+    "streamlit",
+    "plotly",
+    "pandas",
+    "python-dotenv",
+]

@@ -1,0 +1,15 @@
+{
+  "mcpServers": {
+    "esios-data-oauth": {
+      "type": "http",
+      "url": "https://mcp.datons.com/esios-data/mcp/"
+    },
+    "esios-data-apikey": {
+      "type": "http",
+      "url": "https://mcp.datons.com/esios-data/mcp/",
+      "headers": {
+        "X-API-Key": "${DATONS_API_KEY}"
+      }
+    }
+  }
+}
