@@ -1,7 +1,7 @@
 {
 	"name": "ESIOS Data Dashboard",
 	"image": "mcr.microsoft.com/devcontainers/python:3.12",
-	"postCreateCommand": "curl -LsSf https://astral.sh/uv/install.sh | sh && export PATH=\"$HOME/.local/bin:$PATH\" && uv sync",
+	"postCreateCommand": "sudo apt-get update && sudo apt-get install -y direnv && echo 'eval \"$(direnv hook bash)\"' >> ~/.bashrc && curl -LsSf https://astral.sh/uv/install.sh | sh && export PATH=\"$HOME/.local/bin:$PATH\" && uv sync && if [ -n \"$DATONS_API_KEY\" ] && [ ! -f .env ]; then echo \"DATONS_API_KEY=$DATONS_API_KEY\" > .env; fi && direnv allow",
 	"forwardPorts": [8501],
 	"portsAttributes": {
 		"8501": {
