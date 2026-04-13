@@ -15,6 +15,7 @@ from lib import (
 	build_indicator_meta_sql,
 	build_indicator_sql,
 	get_api_key,
+	load_indicators,
 	normalize_query_result,
 	run_query,
 )
@@ -59,9 +60,21 @@ def main() -> None:
 
 	with st.sidebar:
 		st.header("Indicator")
-		preset_label = st.selectbox("Common indicators", [label for _, label in COMMON_INDICATORS])
-		default_indicator_id = next(iid for iid, label in COMMON_INDICATORS if label == preset_label)
-		indicator_id = st.number_input("Indicator ID", min_value=1, value=default_indicator_id, step=1)
+
+		indicators = load_indicators(api_key)
+		# Build lookup: id → name, with common indicators first
+		common_ids = {iid for iid, _ in COMMON_INDICATORS}
+		indicator_options = [ind for ind in indicators if ind["id"] in common_ids] + \
+			[ind for ind in indicators if ind["id"] not in common_ids]
+
+		selected = st.selectbox(
+			"Search indicator",
+			options=indicator_options,
+			format_func=lambda ind: f"{ind['name']} ({ind['id']})",
+			index=0,
+		)
+		indicator_id = selected["id"]
+
 		start_date = st.date_input("Start date", value=date(2025, 1, 1))
 		end_date = st.date_input("End date", value=date.today())
 
@@ -109,7 +122,7 @@ def main() -> None:
 	for col in ("avg_value", "min_value", "max_value"):
 		df[col] = pd.to_numeric(df[col], errors="coerce")
 
-	indicator_name = meta["indicator_name"] or preset_label
+	indicator_name = meta["indicator_name"] or selected["name"]
 	y_unit = meta["unit"] or "Value"
 	has_multi_geo = "geo_name" in df.columns
 
@@ -129,7 +142,7 @@ def main() -> None:
 			x=time_col,
 			y="avg_value",
 			color="geo_name",
-			title=f"{preset_label} (indicator {int(indicator_id)})",
+			title=f"{selected["name"]} (indicator {int(indicator_id)})",
 		)
 		fig.update_layout(
 			xaxis_title="", yaxis_title=y_unit,
@@ -156,7 +169,7 @@ def main() -> None:
 			fillcolor="rgba(37, 99, 235, 0.12)",
 		))
 		fig.update_layout(
-			title=f"{preset_label} (indicator {int(indicator_id)})",
+			title=f"{selected["name"]} (indicator {int(indicator_id)})",
 			xaxis_title="", yaxis_title=y_unit,
 			**PLOTLY_LAYOUT,
 		)

@@ -60,6 +60,22 @@ def load_units_enriched(_token: str) -> list[dict]:
 	return resp.json().get("items", [])
 
 
+@st.cache_data(ttl=3600)
+def load_companies(_token: str) -> list[str]:
+	"""Extract distinct company names from enriched units data."""
+	units = load_units_enriched(_token)
+	companies = sorted({u["company_name"] for u in units if u.get("company_name")})
+	return companies
+
+
+@st.cache_data(ttl=3600)
+def load_indicators(_token: str) -> list[dict]:
+	"""Load all available indicators (id + name) from esios_indicators."""
+	sql = "SELECT DISTINCT indicator_id, indicator_name FROM esios_indicators ORDER BY indicator_id"
+	df = run_query(_token, sql)
+	return [{"id": int(row["indicator_id"]), "name": str(row["indicator_name"])} for _, row in df.iterrows()]
+
+
 def search_units(_token: str, query: str) -> list[dict]:
 	"""Search units by name/company/technology via fields parameter."""
 	import httpx

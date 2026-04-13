@@ -1,4 +1,4 @@
-from lib.client import get_api_key, get_client, load_units, load_units_enriched, normalize_query_result, run_query, search_units
+from lib.client import get_api_key, get_client, load_companies, load_indicators, load_units, load_units_enriched, normalize_query_result, run_query, search_units
 from lib.formatting import format_currency
 from lib.queries import (
 	COMMON_INDICATORS,
@@ -13,6 +13,9 @@ from lib.queries import (
 	build_indicator_meta_sql,
 	build_indicator_sql,
 	build_program_summary_sql,
+	build_report_program_summary_sql,
+	build_report_timeseries_sql,
+	build_report_top_units_sql,
 )
 
 __all__ = [
@@ -28,9 +31,14 @@ __all__ = [
 	"build_indicator_meta_sql",
 	"build_indicator_sql",
 	"build_program_summary_sql",
+	"build_report_program_summary_sql",
+	"build_report_timeseries_sql",
+	"build_report_top_units_sql",
 	"format_currency",
 	"get_api_key",
 	"get_client",
+	"load_companies",
+	"load_indicators",
 	"load_units",
 	"load_units_enriched",
 	"normalize_query_result",
