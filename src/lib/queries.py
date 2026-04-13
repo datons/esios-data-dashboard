@@ -236,6 +236,94 @@ ORDER BY hour, program
 """.strip()
 
 
+# -- Program report (multi-unit / company) ------------------------------------
+
+
+def _unit_filter(units: list[str] | None, company: str | None) -> str:
+	"""Build a WHERE clause fragment for unit or company filtering."""
+	if units:
+		escaped = ", ".join(f"'{_sanitize(u)}'" for u in units)
+		return f"AND unit IN ({escaped})"
+	if company:
+		return f"AND company_name = '{_sanitize(company)}'"
+	return ""
+
+
+def build_report_program_summary_sql(
+	start: date,
+	end: date,
+	units: list[str] | None = None,
+	company: str | None = None,
+) -> str:
+	"""Program-level totals across selected units or company."""
+	filt = _unit_filter(units, company)
+	return f"""
+SELECT
+    program,
+    sum(energy) AS total_energy,
+    avg(price) AS avg_price,
+    sum(energy * price) AS revenue,
+    count() AS records
+FROM operational_data
+WHERE datetime >= toDateTime('{_sql_date(start)} 00:00:00')
+  AND datetime <  toDateTime('{_sql_date(end)} 23:59:59')
+  {filt}
+GROUP BY program
+ORDER BY revenue DESC
+""".strip()
+
+
+def build_report_top_units_sql(
+	start: date,
+	end: date,
+	units: list[str] | None = None,
+	company: str | None = None,
+	limit: int = 20,
+) -> str:
+	"""Top units by revenue within the selection."""
+	filt = _unit_filter(units, company)
+	return f"""
+SELECT
+    unit,
+    any(unit_name) AS unit_name,
+    any(technology) AS technology,
+    sum(energy) AS total_energy,
+    avg(price) AS avg_price,
+    sum(energy * price) AS revenue
+FROM operational_data
+WHERE datetime >= toDateTime('{_sql_date(start)} 00:00:00')
+  AND datetime <  toDateTime('{_sql_date(end)} 23:59:59')
+  {filt}
+GROUP BY unit
+ORDER BY revenue DESC
+LIMIT {int(limit)}
+""".strip()
+
+
+def build_report_timeseries_sql(
+	start: date,
+	end: date,
+	units: list[str] | None = None,
+	company: str | None = None,
+) -> str:
+	"""Time series of energy and revenue by program."""
+	filt = _unit_filter(units, company)
+	expr, alias = _time_expr(start, end)
+	return f"""
+SELECT
+    {expr} AS {alias},
+    program,
+    sum(energy) AS total_energy,
+    sum(energy * price) AS revenue
+FROM operational_data
+WHERE datetime >= toDateTime('{_sql_date(start)} 00:00:00')
+  AND datetime <  toDateTime('{_sql_date(end)} 23:59:59')
+  {filt}
+GROUP BY {alias}, program
+ORDER BY {alias}, program
+""".strip()
+
+
 def build_indicator_meta_sql(indicator_id: int) -> str:
 	"""Fetch indicator metadata: name, unit, magnitude."""
 	return f"""
