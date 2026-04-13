@@ -154,7 +154,7 @@ def main() -> None:
 			color_discrete_sequence=["#2563eb"],
 		)
 		fig.update_layout(xaxis_title="", yaxis_title="€", **PLOTLY_LAYOUT)
-		st.plotly_chart(fig, True=width="stretch"=True)
+		st.plotly_chart(fig, width="stretch")
 
 	with right:
 		fig = px.bar(
@@ -166,7 +166,7 @@ def main() -> None:
 			color_discrete_sequence=["#16a34a"],
 		)
 		fig.update_layout(xaxis_title="", yaxis_title="MWh", **PLOTLY_LAYOUT)
-		st.plotly_chart(fig, True=width="stretch"=True)
+		st.plotly_chart(fig, width="stretch")
 
 	# Revenue over time by program
 	if len(df_ts):
@@ -178,7 +178,7 @@ def main() -> None:
 			title="Revenue over time by program",
 		)
 		fig.update_layout(xaxis_title="", yaxis_title="€", **PLOTLY_LAYOUT)
-		st.plotly_chart(fig, True=width="stretch"=True)
+		st.plotly_chart(fig, width="stretch")
 
 	# Energy over time by program
 	if len(df_ts):
@@ -190,7 +190,7 @@ def main() -> None:
 			title="Energy over time by program (MWh)",
 		)
 		fig.update_layout(xaxis_title="", yaxis_title="MWh", **PLOTLY_LAYOUT)
-		st.plotly_chart(fig, True=width="stretch"=True)
+		st.plotly_chart(fig, width="stretch")
 
 	# --- Top units table ---
 
@@ -202,7 +202,7 @@ def main() -> None:
 				"avg_price": "€{:,.2f}",
 				"revenue": "€{:,.0f}",
 			}),
-			True=width="stretch"=True,
+			width="stretch",
 		)
 
 	# --- Program summary table ---
@@ -215,7 +215,7 @@ def main() -> None:
 				"revenue": "€{:,.0f}",
 				"records": "{:,}",
 			}),
-			True=width="stretch"=True,
+			width="stretch",
 		)
 
 
