@@ -14,16 +14,10 @@ indicators = st.Page("pages/01_indicators.py", title="Indicators", icon=":materi
 operational = st.Page("pages/02_operational_data.py", title="Operational data", icon=":material/factory:")
 daily_detail = st.Page("pages/04_daily_detail.py", title="Daily detail", icon=":material/schedule:")
 constraints = st.Page("pages/03_technical_constraints.py", title="Technical constraints", icon=":material/warning:")
+report = st.Page("pages/05_program_report.py", title="Program report", icon=":material/assessment:")
 
 pg = st.navigation({
-	"ESIOS Data": [overview, indicators, operational, daily_detail, constraints],
+	"ESIOS Data": [overview, indicators, operational, daily_detail, constraints, report],
 })
-
-st.sidebar.divider()
-st.sidebar.info(
-	"**API limits:** raw queries → 50 rows, "
-	"aggregated queries → 10,000 rows.",
-	icon="ℹ️",
-)
 
 pg.run()
