@@ -20,12 +20,12 @@
 			"settings": {
 				"python.defaultInterpreterPath": ".venv/bin/python",
 				"python.terminal.activateEnvironment": false,
-				"workbench.iconTheme": "material-icon-theme"
+				"workbench.iconTheme": "vscode-icons"
 			},
 			"extensions": [
 				"ms-python.python",
 				"ms-python.debugpy",
-				"PKief.material-icon-theme",
+				"vscode-icons-team.vscode-icons",
 				"charliermarsh.ruff"
 			]
 		}

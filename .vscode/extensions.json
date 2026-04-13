@@ -2,7 +2,7 @@
 	"recommendations": [
 		"ms-python.python",
 		"ms-python.debugpy",
-		"PKief.material-icon-theme",
+		"vscode-icons-team.vscode-icons",
 		"charliermarsh.ruff"
 	]
 }
