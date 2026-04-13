@@ -181,6 +181,18 @@ def main() -> None:
 	)
 	st.plotly_chart(fig, use_container_width=True)
 
+	# -- Energy by program over time -------------------------------------------
+
+	fig = px.line(
+		df_time,
+		x=time_col,
+		y="total_energy",
+		color="program",
+		title="Energy by program over time (MWh)",
+	)
+	fig.update_layout(xaxis_title="", yaxis_title="MWh", **PLOTLY_LAYOUT)
+	st.plotly_chart(fig, use_container_width=True)
+
 	# -- Tables ----------------------------------------------------------------
 
 	with st.expander("Program summary", expanded=True):

@@ -2,8 +2,4 @@
 .venv/
 __pycache__/
 .plans/
-# Keep .vscode/mcp.json but ignore the rest
-.vscode/*
-!.vscode/mcp.json
 *.pyc
-uv.lock

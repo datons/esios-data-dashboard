@@ -1,0 +1,33 @@
+{
+	"name": "ESIOS Data Dashboard",
+	"image": "mcr.microsoft.com/devcontainers/python:3.12",
+	"features": {
+		"ghcr.io/astral-sh/uv-installer/uv-installer:1": {}
+	},
+	"postCreateCommand": "uv sync",
+	"forwardPorts": [8501],
+	"portsAttributes": {
+		"8501": {
+			"label": "Streamlit",
+			"onAutoForward": "openBrowser"
+		}
+	},
+	"containerEnv": {
+		"DATONS_API_KEY": "${localEnv:DATONS_API_KEY}"
+	},
+	"customizations": {
+		"vscode": {
+			"settings": {
+				"python.defaultInterpreterPath": ".venv/bin/python",
+				"python.terminal.activateEnvironment": false,
+				"workbench.iconTheme": "material-icon-theme"
+			},
+			"extensions": [
+				"ms-python.python",
+				"ms-python.debugpy",
+				"PKief.material-icon-theme",
+				"charliermarsh.ruff"
+			]
+		}
+	}
+}

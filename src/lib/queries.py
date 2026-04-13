@@ -163,6 +163,79 @@ ORDER BY {alias}, geo_name
 """.strip()
 
 
+TOP_CONSTRAINT_TECHNOLOGIES = [
+	"Onshore wind",
+	"Solar PV",
+	"Hidráulica Generación",
+	"Consumo de bombeo",
+	"Solar thermal",
+	"Hydro UGH",
+	"Hidráulica de Bombeo Puro",
+	"Natural Gas Cogeneration",
+	"Ciclo Combinado",
+	"Combined cycle GT",
+	"Nuclear",
+	"Biomass",
+]
+
+
+# -- Technical constraints -----------------------------------------------------
+
+
+def build_constraints_summary_sql(start: date, end: date) -> str:
+	"""Total constraint volume per technology and direction."""
+	return f"""
+SELECT
+    technology,
+    sign,
+    sum(energy) AS total_mwh,
+    count() AS records,
+    avg(price) AS avg_price
+FROM operational_data
+WHERE redispatch IS NOT NULL
+  AND datetime >= toDateTime('{_sql_date(start)} 00:00:00')
+  AND datetime <  toDateTime('{_sql_date(end)} 23:59:59')
+GROUP BY technology, sign
+ORDER BY total_mwh
+""".strip()
+
+
+def build_constraints_daily_sql(start: date, end: date) -> str:
+	"""Daily constraint volume per technology and direction."""
+	return f"""
+SELECT
+    toDate(datetime) AS date,
+    technology,
+    sign,
+    sum(energy) AS total_mwh
+FROM operational_data
+WHERE redispatch IS NOT NULL
+  AND datetime >= toDateTime('{_sql_date(start)} 00:00:00')
+  AND datetime <  toDateTime('{_sql_date(end)} 23:59:59')
+GROUP BY date, technology, sign
+ORDER BY date, technology
+""".strip()
+
+
+def build_hourly_detail_sql(unit: str, day: date) -> str:
+	"""Hourly breakdown for a single unit on a single day."""
+	safe_unit = _sanitize(unit)
+	return f"""
+SELECT
+    toStartOfHour(datetime) AS hour,
+    program,
+    sum(energy) AS total_energy,
+    avg(price) AS avg_price,
+    sum(energy * price) AS revenue
+FROM operational_data
+WHERE unit = '{safe_unit}'
+  AND datetime >= toDateTime('{_sql_date(day)} 00:00:00')
+  AND datetime <  toDateTime('{_sql_date(day)} 23:59:59')
+GROUP BY hour, program
+ORDER BY hour, program
+""".strip()
+
+
 def build_indicator_meta_sql(indicator_id: int) -> str:
 	"""Fetch indicator metadata: name, unit, magnitude."""
 	return f"""
