@@ -115,12 +115,12 @@ def main() -> None:
 		st.stop()
 
 	time_col = "hour" if "hour" in df_time.columns else "date"
-	df_time[time_col] = pd.to_datetime(df_time[time_col])
+	df_time[time_col] = pd.to_datetime(df_time[time_col], utc=True)
 	for col in ("total_energy", "avg_price", "revenue"):
 		df_time[col] = pd.to_numeric(df_time[col], errors="coerce").fillna(0.0)
 
 	capture_time_col = "hour" if "hour" in df_capture.columns else "date"
-	df_capture[capture_time_col] = pd.to_datetime(df_capture[capture_time_col])
+	df_capture[capture_time_col] = pd.to_datetime(df_capture[capture_time_col], utc=True)
 	for col in ("captured_price", "market_price"):
 		df_capture[col] = pd.to_numeric(df_capture[col], errors="coerce").fillna(0.0)
 

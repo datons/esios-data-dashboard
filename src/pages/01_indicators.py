@@ -105,7 +105,7 @@ def main() -> None:
 		st.stop()
 
 	time_col = "hour" if "hour" in df.columns else "date"
-	df[time_col] = pd.to_datetime(df[time_col])
+	df[time_col] = pd.to_datetime(df[time_col], utc=True)
 	for col in ("avg_value", "min_value", "max_value"):
 		df[col] = pd.to_numeric(df[col], errors="coerce")
 

@@ -96,7 +96,7 @@ def main() -> None:
 		st.warning("No data for the selected unit and day.")
 		st.stop()
 
-	df["hour"] = pd.to_datetime(df["hour"])
+	df["hour"] = pd.to_datetime(df["hour"], utc=True)
 	for col in ("total_energy", "avg_price", "revenue"):
 		df[col] = pd.to_numeric(df[col], errors="coerce").fillna(0.0)
 

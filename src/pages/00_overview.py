@@ -161,7 +161,7 @@ LIMIT 15
         st.info("No price data for the selected range.")
         st.stop()
 
-    df_price[time_col] = pd.to_datetime(df_price[time_col])
+    df_price[time_col] = pd.to_datetime(df_price[time_col], utc=True)
     fig_price = px.line(
         df_price, x=time_col, y="avg_price",
         title="Spot price (PVPC) — Península",
@@ -174,7 +174,7 @@ LIMIT 15
     left, right = st.columns(2)
 
     with left:
-        df_demand[time_col] = pd.to_datetime(df_demand[time_col])
+        df_demand[time_col] = pd.to_datetime(df_demand[time_col], utc=True)
         fig_demand = px.area(
             df_demand, x=time_col, y="avg_demand",
             title="Electricity demand — Península",
@@ -184,7 +184,7 @@ LIMIT 15
         st.plotly_chart(fig_demand, use_container_width=True)
 
     with right:
-        df_renewables["date"] = pd.to_datetime(df_renewables["date"])
+        df_renewables["date"] = pd.to_datetime(df_renewables["date"], utc=True)
         df_renewables["renewable_pct"] = df_renewables["renewable_mw"] / df_renewables["demand_mw"].replace(0, float("nan")) * 100
         fig_ren = px.bar(
             df_renewables, x="date", y="renewable_pct",

@@ -71,7 +71,7 @@ def main() -> None:
 	df_summary["technology"] = df_summary["technology"].fillna("Unknown")
 
 	df_daily["total_mwh"] = pd.to_numeric(df_daily["total_mwh"], errors="coerce").fillna(0.0)
-	df_daily["date"] = pd.to_datetime(df_daily["date"])
+	df_daily["date"] = pd.to_datetime(df_daily["date"], utc=True)
 	df_daily["technology"] = df_daily["technology"].fillna("Unknown")
 
 	# Filter direction
