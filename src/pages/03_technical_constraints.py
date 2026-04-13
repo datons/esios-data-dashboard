@@ -122,7 +122,7 @@ def main() -> None:
 		height=max(400, len(df_tech["technology"].unique()) * 28),
 		**PLOTLY_LAYOUT,
 	)
-	st.plotly_chart(fig, use_container_width=True)
+	st.plotly_chart(fig, width="stretch")
 
 	# -- Time series: daily constraints by top technologies --------------------
 
@@ -151,7 +151,7 @@ def main() -> None:
 		height=450,
 		**PLOTLY_LAYOUT,
 	)
-	st.plotly_chart(fig, use_container_width=True)
+	st.plotly_chart(fig, width="stretch")
 
 	# -- Stacked area: Bajar only (curtailment share) --------------------------
 
@@ -174,7 +174,7 @@ def main() -> None:
 			height=450,
 			**PLOTLY_LAYOUT,
 		)
-		st.plotly_chart(fig, use_container_width=True)
+		st.plotly_chart(fig, width="stretch")
 
 	# -- Correlation heatmap ---------------------------------------------------
 
@@ -229,7 +229,7 @@ def main() -> None:
 			xaxis=dict(tickangle=-45),
 			margin=dict(l=0, r=0, t=10, b=0),
 		)
-		st.plotly_chart(fig, use_container_width=True)
+		st.plotly_chart(fig, width="stretch")
 	else:
 		st.info("Not enough technologies with data for correlation analysis.")
 
@@ -248,7 +248,7 @@ def main() -> None:
 				"avg_price": "€{:,.2f}",
 				"records": "{:,}",
 			}),
-			use_container_width=True,
+			width="stretch",
 		)
 
 

@@ -154,14 +154,14 @@ def main() -> None:
 			color_discrete_sequence=["#2563eb"],
 		)
 		fig.update_layout(xaxis_title="", yaxis_title="€", **PLOTLY_LAYOUT)
-		st.plotly_chart(fig, use_container_width=True)
+		st.plotly_chart(fig, width="stretch")
 
 	with right:
 		daily_revenue = df_time.groupby(time_col, as_index=False)["revenue"].sum()
 		fig = px.area(daily_revenue, x=time_col, y="revenue", title="Revenue over time")
 		fig.update_traces(line_color="#2563eb", fillcolor="rgba(37, 99, 235, 0.12)")
 		fig.update_layout(xaxis_title="", yaxis_title="€", **PLOTLY_LAYOUT)
-		st.plotly_chart(fig, use_container_width=True)
+		st.plotly_chart(fig, width="stretch")
 
 	fig = go.Figure()
 	fig.add_trace(go.Scatter(
@@ -179,7 +179,7 @@ def main() -> None:
 		xaxis_title="", yaxis_title="€/MWh",
 		**PLOTLY_LAYOUT,
 	)
-	st.plotly_chart(fig, use_container_width=True)
+	st.plotly_chart(fig, width="stretch")
 
 	# -- Energy by program over time -------------------------------------------
 
@@ -191,7 +191,7 @@ def main() -> None:
 		title="Energy by program over time (MWh)",
 	)
 	fig.update_layout(xaxis_title="", yaxis_title="MWh", **PLOTLY_LAYOUT)
-	st.plotly_chart(fig, use_container_width=True)
+	st.plotly_chart(fig, width="stretch")
 
 	# -- Tables ----------------------------------------------------------------
 
@@ -203,11 +203,11 @@ def main() -> None:
 				"revenue": "€{:,.0f}",
 				"records": "{:,}",
 			}),
-			use_container_width=True,
+			width="stretch",
 		)
 
 	with st.expander("Time series data"):
-		st.dataframe(df_time, use_container_width=True, height=400)
+		st.dataframe(df_time, width="stretch", height=400)
 
 
 main()

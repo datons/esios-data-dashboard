@@ -174,12 +174,12 @@ def main() -> None:
 			**PLOTLY_LAYOUT,
 		)
 
-	st.plotly_chart(fig, use_container_width=True)
+	st.plotly_chart(fig, width="stretch")
 
 	# -- Data ------------------------------------------------------------------
 
 	with st.expander("Aggregated data"):
-		st.dataframe(df, use_container_width=True, height=400)
+		st.dataframe(df, width="stretch", height=400)
 
 
 main()

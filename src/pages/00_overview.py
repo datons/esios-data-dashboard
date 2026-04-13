@@ -168,7 +168,7 @@ LIMIT 15
     )
     fig_price.update_traces(line_color="#2563eb", line_width=1.5)
     fig_price.update_layout(xaxis_title="", yaxis_title="€/MWh", **PLOTLY_LAYOUT)
-    st.plotly_chart(fig_price, use_container_width=True)
+    st.plotly_chart(fig_price, width="stretch")
 
     # Demand + Renewables side by side
     left, right = st.columns(2)
@@ -181,7 +181,7 @@ LIMIT 15
         )
         fig_demand.update_traces(line_color="#2563eb", fillcolor="rgba(37, 99, 235, 0.12)")
         fig_demand.update_layout(xaxis_title="", yaxis_title="MW", **PLOTLY_LAYOUT)
-        st.plotly_chart(fig_demand, use_container_width=True)
+        st.plotly_chart(fig_demand, width="stretch")
 
     with right:
         df_renewables["date"] = pd.to_datetime(df_renewables["date"], utc=True)
@@ -192,7 +192,7 @@ LIMIT 15
             color_discrete_sequence=["#16a34a"],
         )
         fig_ren.update_layout(xaxis_title="", yaxis_title="%", **PLOTLY_LAYOUT)
-        st.plotly_chart(fig_ren, use_container_width=True)
+        st.plotly_chart(fig_ren, width="stretch")
 
     # Technology mix
     if len(df_tech) > 0:
@@ -203,12 +203,12 @@ LIMIT 15
             color_discrete_sequence=["#2563eb"],
         )
         fig_tech.update_layout(xaxis_title="", yaxis_title="MWh", xaxis_tickangle=-45, **PLOTLY_LAYOUT)
-        st.plotly_chart(fig_tech, use_container_width=True)
+        st.plotly_chart(fig_tech, width="stretch")
 
     # --- Data ---
 
     with st.expander("Price data"):
-        st.dataframe(df_price, use_container_width=True, height=300)
+        st.dataframe(df_price, width="stretch", height=300)
 
 
 main()

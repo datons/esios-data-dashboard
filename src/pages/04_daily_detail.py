@@ -133,7 +133,7 @@ def main() -> None:
 		height=400,
 		**PLOTLY_LAYOUT,
 	)
-	st.plotly_chart(fig, use_container_width=True)
+	st.plotly_chart(fig, width="stretch")
 
 	# -- Price by program (lines) ----------------------------------------------
 
@@ -152,7 +152,7 @@ def main() -> None:
 		height=400,
 		**PLOTLY_LAYOUT,
 	)
-	st.plotly_chart(fig, use_container_width=True)
+	st.plotly_chart(fig, width="stretch")
 
 	# -- Revenue by program (stacked bar) --------------------------------------
 
@@ -171,7 +171,7 @@ def main() -> None:
 		height=400,
 		**PLOTLY_LAYOUT,
 	)
-	st.plotly_chart(fig, use_container_width=True)
+	st.plotly_chart(fig, width="stretch")
 
 	# -- Table -----------------------------------------------------------------
 
@@ -189,7 +189,7 @@ def main() -> None:
 		st.caption("Energy (MWh)")
 		st.dataframe(
 			pivot_energy.style.format("{:,.1f}"),
-			use_container_width=True,
+			width="stretch",
 		)
 
 	with st.expander("Price table"):
@@ -204,11 +204,11 @@ def main() -> None:
 		st.caption("Average price (€/MWh)")
 		st.dataframe(
 			pivot_price.style.format("€{:,.2f}"),
-			use_container_width=True,
+			width="stretch",
 		)
 
 	with st.expander("Raw data"):
-		st.dataframe(df, use_container_width=True, height=400)
+		st.dataframe(df, width="stretch", height=400)
 
 
 main()
