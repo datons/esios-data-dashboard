@@ -1,7 +1,10 @@
 {
 	"name": "ESIOS Data Dashboard",
 	"image": "mcr.microsoft.com/devcontainers/python:3.12",
-	"postCreateCommand": "pip install uv && uv sync",
+	"features": {
+		"ghcr.io/jsburckhardt/devcontainer-features/uv:1": {}
+	},
+	"postCreateCommand": "uv sync",
 	"forwardPorts": [8501],
 	"portsAttributes": {
 		"8501": {
