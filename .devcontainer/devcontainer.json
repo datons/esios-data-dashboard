@@ -1,10 +1,7 @@
 {
 	"name": "ESIOS Data Dashboard",
 	"image": "mcr.microsoft.com/devcontainers/python:3.12",
-	"features": {
-		"ghcr.io/astral-sh/uv-installer/uv-installer:1": {}
-	},
-	"postCreateCommand": "uv sync",
+	"postCreateCommand": "pip install uv && uv sync",
 	"forwardPorts": [8501],
 	"portsAttributes": {
 		"8501": {
