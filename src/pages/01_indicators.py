@@ -67,11 +67,14 @@ def main() -> None:
 		indicator_options = [ind for ind in indicators if ind["id"] in common_ids] + \
 			[ind for ind in indicators if ind["id"] not in common_ids]
 
+		import random
+		default_idx = random.randint(0, len(indicator_options) - 1)
+
 		selected = st.selectbox(
 			"Search indicator",
 			options=indicator_options,
 			format_func=lambda ind: f"{ind['name']} ({ind['id']})",
-			index=0,
+			index=default_idx,
 		)
 		indicator_id = selected["id"]
 

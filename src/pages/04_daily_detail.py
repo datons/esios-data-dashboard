@@ -61,14 +61,11 @@ def main() -> None:
 			st.warning(f"No units matching '{search}'")
 			st.stop()
 
-		default_idx = 0
-		if not search:
-			default_label = next((l for l in filtered if l.startswith("BRUC ")), None)
-			if default_label:
-				default_idx = filtered.index(default_label)
+		import random
+		default_idx = random.randint(0, len(filtered) - 1) if not search else 0
 
 		selected_label = st.selectbox("Unit", filtered, index=default_idx)
-		unit = unit_labels.get(selected_label, "BRUC")
+		unit = unit_labels.get(selected_label, "")
 		selected_day = st.date_input("Day", value=date(2025, 6, 15))
 
 	# Unit metadata
