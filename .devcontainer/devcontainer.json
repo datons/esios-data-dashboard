@@ -10,7 +10,9 @@
 		}
 	},
 	"containerEnv": {
-		"DATONS_API_KEY": "${localEnv:DATONS_API_KEY}"
+		"DATONS_API_KEY": "${localEnv:DATONS_API_KEY}",
+		"UV_COMPILE_BYTECODE": "1",
+		"UV_LINK_MODE": "copy"
 	},
 	"customizations": {
 		"vscode": {
