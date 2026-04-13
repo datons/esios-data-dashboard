@@ -63,7 +63,8 @@ def main() -> None:
 		selected_company: str | None = None
 
 		if mode == "Company":
-			selected_company = st.selectbox("Company", companies)
+			import random
+			selected_company = st.selectbox("Company", companies, index=random.randint(0, len(companies) - 1))
 			if selected_company:
 				company_units = [u["unit"] for u in units_data if u.get("company_name") == selected_company]
 				st.caption(f"{len(company_units)} units in this company")
